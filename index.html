@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Especial ❤️</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9eb5, #ff4d6d, #c9184a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+}
+
+/* Partículas */
+.sparkle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    animation: blink 4s infinite alternate;
+}
+
+@keyframes blink {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    padding: 40px 60px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 25px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 40px rgba(255,255,255,0.2);
+}
+
+.text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 50px;
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 1s ease;
+    text-shadow: 0 0 20px rgba(255,255,255,0.6);
+    max-width: 800px;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.buttons {
+    margin-top: 30px;
+    opacity: 0;
+    transition: 1s ease;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+
+.buttons.show {
+    opacity: 1;
+}
+
+button {
+    padding: 10px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* SIM */
+#yes {
+    background: white;
+    color: #c9184a;
+    transition: transform 0.3s ease;
+}
+
+#yes:hover {
+    transform: scale(1.08);
+}
+
+/* NÃO começa do lado */
+#no {
+    background: #222;
+    color: white;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+/* Tremida */
+.shake {
+    animation: shake 0.15s linear 2;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
+/* Corações */
+.heart {
+    position: absolute;
+    font-size: 18px;
+    animation: float 5s linear forwards;
+}
+
+@keyframes float {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: translateY(-250px) scale(1.5); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="text" id="message">I Love You, deseja ser minha princesa? ❤️</div>
+    <div class="buttons" id="buttons">
+        <button id="yes">Sim 💖</button>
+        <button id="no">Não 😅</button>
+    </div>
+</div>
+
+<script>
+const message = document.getElementById("message");
+const buttons = document.getElementById("buttons");
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+
+/* Partículas */
+for (let i = 0; i < 40; i++) {
+    let s = document.createElement("div");
+    s.classList.add("sparkle");
+    s.style.top = Math.random() * 100 + "vh";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(s);
+}
+
+setTimeout(() => message.classList.add("show"), 600);
+setTimeout(() => buttons.classList.add("show"), 1600);
+
+/* Fuga mais intensa */
+noBtn.addEventListener("mouseenter", () => {
+
+    noBtn.classList.add("shake");
+
+    setTimeout(() => {
+        noBtn.classList.remove("shake");
+
+        noBtn.style.position = "absolute";
+
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+        noBtn.style.transform = "rotate(" + (Math.random()*40-20) + "deg)";
+    }, 150);
+});
+
+/* SIM */
+yesBtn.addEventListener("click", () => {
+    message.classList.remove("show");
+    buttons.classList.remove("show");
+
+    setTimeout(() => {
+        message.innerHTML = "Perfeito... 👑✨<br><br>Agora você é oficialmente minha princesa.<br>Prometo cuidar, valorizar e te tratar exatamente como merece.<br><br>Te amo muito ❤️";
+        message.classList.add("show");
+        buttons.remove();
+        createHearts();
+    }, 800);
+});
+
+function createHearts() {
+    for (let i = 0; i < 50; i++) {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = Math.random() * window.innerHeight + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }
+}
+</script>
+
+</body>
+</html>
